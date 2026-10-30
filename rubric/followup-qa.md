@@ -31,6 +31,7 @@
 | 확장 | 사용자가 10배가 되면 무엇이 먼저 문제인가? | `DECISIONS.md` 보류 항목 |
 | AI 검증 | AI 결과에서 무엇을 확인하고 고쳤나? | `VERIFICATION.md` "잡아낸 오류" |
 | 우선순위 | 시간이 더 있으면 무엇부터? | `HANDOFF.md` 다음 할 일 |
+| 방향 전환 | 중간에 왜 바꿨나? 처음 계획은 왜 틀렸나? | `DECISIONS.md` 롤백 기록, `AGREEMENT.md` 버전 이력, `INTERVIEW.md` 2회차 |
 
 ## 시간 운영
 

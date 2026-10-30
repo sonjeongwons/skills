@@ -103,6 +103,6 @@ echo
 echo "다음 할 일"
 echo "  1. README.md(과제 지시서)에서 필수 제출 문서·파일명을 확인한다."
 echo "  2. AGENTS.kit.md가 생겼다면 과제의 AGENTS.md 끝에 필요한 규칙만 붙여 넣는다."
-echo "  3. codex 실행 → /status, /model → /skills 로 스킬 9개가 보이는지 확인"
+echo "  3. codex 실행 → /status, /model → /skills 로 스킬 $(ls -d "$KIT_DIR"/skills/*/ | wc -l | tr -d ' ')개가 보이는지 확인"
 echo "     (안 보이면 Codex를 다시 시작. AGENTS.md는 세션 시작 때만 읽힌다)"
 echo "  4. 첫 프롬프트: $KIT_DIR/prompts/codex-prompts.md §1"

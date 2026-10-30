@@ -24,7 +24,7 @@ codex
 | --- | --- | --- |
 | 작업 폴더의 `AGENTS.md` | Codex가 **세션 시작 때 한 번** 자동으로 읽는다. 언제 어떤 문서를 고치고 어떤 스킬을 쓸지 여기 적혀 있다 | 자동 (세션 시작 시) |
 | 살아 있는 문서 5개 (INTERVIEW, AGREEMENT, DECISIONS, VERIFICATION, HANDOFF) | AGENTS.md의 "사건 → 고칠 문서" 표에 따라 Codex가 작업하면서 계속 고친다 | 자동 (규칙 기반) |
-| 스킬 9개 (`~/.agents/skills`에 설치됨) | Codex가 스킬 목록과 설명을 보고 상황에 맞으면 스스로 골라 읽는다. `$이름`으로 직접 부를 수도 있다 | 자동 선택 + 수동 호출 |
+| 스킬 10개 (`~/.agents/skills`에 설치됨) | Codex가 스킬 목록과 설명을 보고 상황에 맞으면 스스로 골라 읽는다. `$이름`으로 직접 부를 수도 있다 | 자동 선택 + 수동 호출 |
 | `playbook/`, `rubric/` | 스킬(`exam-stage`, `rubric-self-check`, `followup-qa-prep`)과 AGENTS.md가 필요할 때 이 경로를 읽게 한다 | 간접 |
 | `STRATEGY.md`, `prompts/`, `checklists/` | 사람이 읽는 자료. Codex에 넣지 않는다 | 사람용 |
 
@@ -42,6 +42,7 @@ codex
 | 지금 어디쯤인지, 다음 단계로 가도 되는지 | `$exam-stage 지금 경과 55분이야` |
 | 기능 하나 맡길 때 | `$delegate-and-verify [기능] / 범위 [파일] / 완료 조건 [명령→결과]` |
 | 무언가를 정했을 때 | `$decision-log A안으로 간다. 이유는 …` |
+| 이전 단계로 돌아가거나 갈아엎을 때 | `$stage-rollback 담당자가 v0를 보고 핵심이 다르다고 함. 지금 82분. 재인터뷰하자` |
 | 대화가 길어졌을 때, 큰 단계가 끝났을 때 | `$handoff` → 새 세션에서 돌려받은 시작 문구 입력 |
 | 125분 무렵 | `$rubric-self-check`, `$security-review` |
 | 150분 무렵 | `$followup-qa-prep` (질문만 받고 답은 직접 쓴다) |
@@ -53,16 +54,17 @@ codex
 | --- | --- | --- |
 | `STRATEGY.md` | 전략 전문: 평가 구조, 공식 조건, 플레이북, 대화법, 서술형 대비 | 시험 전날 정독 |
 | `checklists/pre-exam.md` | 준비물, 사전 체험 15분 점검표, 당일 타임라인 | 전날·당일 아침 |
-| `playbook/` | 180분을 단계별로 나눈 규칙. 단계마다 목표·할 일·종료 조건·남길 증거·금지 행동 | `exam-stage`가 읽음 |
+| `playbook/` | 180분을 단계별로 나눈 규칙. 단계마다 목표·할 일·종료 조건·되돌아가는 신호·금지 행동, `09-rollback.md`는 롤백 규칙 | `exam-stage`, `stage-rollback`이 읽음 |
 | `prompts/codex-prompts.md` | 단계별 Codex 프롬프트 | 시험 중 |
 | `prompts/interviewer-questions.md` | 업무 담당자 에이전트 인터뷰 7단계 질문 | 문제 발굴 단계 |
 | `rubric/` | 평가 기준 점검표, 서술형 대비, 비용 습관 | 스킬이 읽음 |
 | `templates/` | AGENTS.md와 살아 있는 문서 5개 | setup.sh가 복사 |
-| `skills/` | Codex 스킬 9개 (SKILL.md) | setup.sh가 설치 |
+| `skills/` | Codex 스킬 10개 (SKILL.md) | setup.sh가 설치 |
 
 ## 문서가 바뀌는 방식
 
 - **작업 폴더의 문서**(AGENTS.md 포함)는 과제 내내 Codex와 사람이 함께 고친다. 템플릿 모양보다 내용이 정확한 게 중요하며, 칸이나 섹션을 새로 만들어도 된다.
+- **단계는 앞뒤로 움직인다.** 구현 중 재인터뷰, 재합의, 재설계, 기능 되돌리기, 갈아엎기가 모두 정식 흐름이다(`playbook/09-rollback.md`). 롤백 전에는 커밋과 `rollback-N-before` 태그로 보존하고, 문서는 지우지 않고 버전을 올려 쌓는다(합의 v1→v2, 인터뷰 2회차, 검증 "재검증 필요"). 125분 이후에는 기능 되돌리기만 한다.
 - **설치된 스킬**(`~/.agents/skills/<이름>/SKILL.md`)도 진행 중에 고칠 수 있다. 단, `setup.sh`를 다시 실행하면 키트 원본으로 덮어쓴다.
 - **키트 원본**(`~/kit`)은 시험 중에 고쳐도 push할 수 없다(Git Push 금지). 원본 개선은 시험 전에 한다.
 
