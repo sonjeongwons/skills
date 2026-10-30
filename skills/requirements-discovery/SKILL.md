@@ -1,6 +1,6 @@
 ---
 name: requirements-discovery
-description: 과제 지시서와 업무 담당자 인터뷰로 요구를 구체화하고 AGREEMENT.md 초안을 만든다. 과제 시작 직후, 구현 전에 쓴다.
+description: 과제를 처음 받았을 때, 지시서(README)를 구조화하고 업무 담당자에게 물을 질문 초안을 만들고, 담당자 답변을 INTERVIEW.md와 AGREEMENT.md로 정리할 때 쓴다. 범위나 성공 기준이 흔들릴 때도 쓴다. 이미 합의가 끝나 구현 중인 기능 작업에는 쓰지 않는다.
 ---
 
 # 요구 발굴과 합의

@@ -1,7 +1,7 @@
 # Cofa Probe 응시 키트
 
 SK하이닉스 AI 해커톤 2026 2차 예선(크래프톤 Cofa Probe)에서 쓰는 개인 작업 키트입니다.
-과제 결과물 코드는 들어 있지 않습니다. 작업 규칙, 문서 템플릿, 단계별 플레이북, 프롬프트, 평가 기준 체크리스트, 절차 스킬만 담았습니다.
+과제 결과물 코드는 들어 있지 않습니다. 작업 규칙, 살아 있는 문서 템플릿, 단계별 플레이북, 프롬프트, 평가 기준 체크리스트, Codex 스킬만 담았습니다.
 
 ## 시험장 1분 세팅
 
@@ -10,19 +10,42 @@ SK하이닉스 AI 해커톤 2026 2차 예선(크래프톤 Cofa Probe)에서 쓰�
 git clone https://github.com/sonjeongwons/skills ~/kit
 #    이미 받아 두었다면: git -C ~/kit pull
 
-# 2) 과제 작업 폴더로 이동해서 템플릿 복사 (기존 파일은 절대 덮어쓰지 않음)
+# 2) 과제 작업 폴더에서 설치 (기존 파일은 덮어쓰지 않음)
 cd ~/workspace
 bash ~/kit/setup.sh
 
-# 3) Codex 실행 → /status, /model 확인
+# 3) Codex 실행 → /status, /model, /skills 확인
 codex
 ```
 
-`setup.sh`가 하는 일은 세 가지입니다.
+## 설치 후 Codex가 알아서 하는 것과 아닌 것
 
-1. `templates/`의 문서 6개를 작업 폴더로 복사합니다. 같은 이름의 파일이 이미 있으면 건너뛰고, `AGENTS.md`가 이미 있으면 `AGENTS.kit.md`로 따로 만듭니다.
-2. `AGENTS.md` 안의 스킬 경로를 실제 키트 위치로 바꿉니다.
-3. 작업 폴더가 git 저장소가 아니면 `git init`만 합니다. 커밋은 하지 않습니다.
+| 대상 | 어떻게 쓰이나 | 자동 여부 |
+| --- | --- | --- |
+| 작업 폴더의 `AGENTS.md` | Codex가 **세션 시작 때 한 번** 자동으로 읽는다. 언제 어떤 문서를 고치고 어떤 스킬을 쓸지 여기 적혀 있다 | 자동 (세션 시작 시) |
+| 살아 있는 문서 5개 (INTERVIEW, AGREEMENT, DECISIONS, VERIFICATION, HANDOFF) | AGENTS.md의 "사건 → 고칠 문서" 표에 따라 Codex가 작업하면서 계속 고친다 | 자동 (규칙 기반) |
+| 스킬 9개 (`~/.agents/skills`에 설치됨) | Codex가 스킬 목록과 설명을 보고 상황에 맞으면 스스로 골라 읽는다. `$이름`으로 직접 부를 수도 있다 | 자동 선택 + 수동 호출 |
+| `playbook/`, `rubric/` | 스킬(`exam-stage`, `rubric-self-check`, `followup-qa-prep`)과 AGENTS.md가 필요할 때 이 경로를 읽게 한다 | 간접 |
+| `STRATEGY.md`, `prompts/`, `checklists/` | 사람이 읽는 자료. Codex에 넣지 않는다 | 사람용 |
+
+### 알아 둘 동작 방식 (Codex 공식 문서 기준)
+
+- **AGENTS.md는 세션 시작 때만 읽힌다.** 진행 중에 AGENTS.md를 고치면(예: 6절에 과제별 규칙 추가) 다음 세션부터 적용된다. 바로 적용하려면 "AGENTS.md 6절을 다시 읽어"라고 말한다.
+- **스킬은 설명(description)을 보고 Codex가 고른다.** 자동 선택은 보장되지 않으니, 중요한 순간에는 `$handoff`처럼 직접 부르는 것이 확실하다. 스킬 파일이 바뀌면 Codex가 자동으로 감지하고, 안 보이면 Codex를 다시 시작한다.
+- 스킬은 `~/.agents/skills`(사용자 범위)에 설치되므로 작업 폴더에 들어가지 않고 제출물에도 섞이지 않는다.
+
+## 순간별로 부를 스킬
+
+| 순간 | 입력 예 |
+| --- | --- |
+| 과제 시작 직후 | `$requirements-discovery README를 구조화하고 담당자에게 물을 질문 초안 만들어줘` |
+| 지금 어디쯤인지, 다음 단계로 가도 되는지 | `$exam-stage 지금 경과 55분이야` |
+| 기능 하나 맡길 때 | `$delegate-and-verify [기능] / 범위 [파일] / 완료 조건 [명령→결과]` |
+| 무언가를 정했을 때 | `$decision-log A안으로 간다. 이유는 …` |
+| 대화가 길어졌을 때, 큰 단계가 끝났을 때 | `$handoff` → 새 세션에서 돌려받은 시작 문구 입력 |
+| 125분 무렵 | `$rubric-self-check`, `$security-review` |
+| 150분 무렵 | `$followup-qa-prep` (질문만 받고 답은 직접 쓴다) |
+| 170분 | `$pre-submit-check` |
 
 ## 무엇이 어디 있나
 
@@ -30,35 +53,23 @@ codex
 | --- | --- | --- |
 | `STRATEGY.md` | 전략 전문: 평가 구조, 공식 조건, 플레이북, 대화법, 서술형 대비 | 시험 전날 정독 |
 | `checklists/pre-exam.md` | 준비물, 사전 체험 15분 점검표, 당일 타임라인 | 전날·당일 아침 |
-| `playbook/` | 180분을 단계별로 나눈 규칙. 단계마다 목표·할 일·프롬프트·남길 증거·금지 행동 | 시험 중 단계 전환 때 |
+| `playbook/` | 180분을 단계별로 나눈 규칙. 단계마다 목표·할 일·종료 조건·남길 증거·금지 행동 | `exam-stage`가 읽음 |
 | `prompts/codex-prompts.md` | 단계별 Codex 프롬프트 | 시험 중 |
 | `prompts/interviewer-questions.md` | 업무 담당자 에이전트 인터뷰 7단계 질문 | 문제 발굴 단계 |
-| `rubric/evaluation-checklist.md` | 기술·의도·인지 9개 기준별로 무엇을 남겨야 하는지 | 제출 전 자가 점검 |
-| `rubric/followup-qa.md` | 서술형 6문항 × 5분 대비 | 150분 이후 |
-| `rubric/cost-control.md` | 토큰 비용 줄이는 습관 | 수시 |
-| `templates/` | AGENTS.md, AGREEMENT.md, INTERVIEW.md, DECISIONS.md, VERIFICATION.md, HANDOFF.md | setup.sh가 복사 |
-| `skills/` | Codex에게 읽힐 절차 스킬 7개 (SKILL.md 형식) | 필요할 때 경로를 알려주고 읽게 함 |
+| `rubric/` | 평가 기준 점검표, 서술형 대비, 비용 습관 | 스킬이 읽음 |
+| `templates/` | AGENTS.md와 살아 있는 문서 5개 | setup.sh가 복사 |
+| `skills/` | Codex 스킬 9개 (SKILL.md) | setup.sh가 설치 |
 
-## 읽는 순서
+## 문서가 바뀌는 방식
 
-- **시험 전날**: `STRATEGY.md` → `playbook/00-timeline.md` → `rubric/evaluation-checklist.md`
-- **당일 아침**: `checklists/pre-exam.md`, `prompts/interviewer-questions.md`
-- **시험 중**: 단계가 바뀔 때마다 해당 `playbook/0N-*.md`의 "종료 조건"만 확인
-
-## 스킬 쓰는 법
-
-Codex에게 경로를 알려주고 읽게 합니다. 예:
-
-```
-~/kit/skills/handoff/SKILL.md 를 읽고 그 절차대로 HANDOFF.md를 갱신해줘.
-```
-
-`setup.sh`가 만든 `AGENTS.md`에도 스킬 경로 목록이 들어 있어서, Codex가 필요할 때 스스로 찾아 읽을 수 있습니다.
+- **작업 폴더의 문서**(AGENTS.md 포함)는 과제 내내 Codex와 사람이 함께 고친다. 템플릿 모양보다 내용이 정확한 게 중요하며, 칸이나 섹션을 새로 만들어도 된다.
+- **설치된 스킬**(`~/.agents/skills/<이름>/SKILL.md`)도 진행 중에 고칠 수 있다. 단, `setup.sh`를 다시 실행하면 키트 원본으로 덮어쓴다.
+- **키트 원본**(`~/kit`)은 시험 중에 고쳐도 push할 수 없다(Git Push 금지). 원본 개선은 시험 전에 한다.
 
 ## 지켜야 할 규칙
 
 - 키트는 작업 폴더 밖에 받습니다. 제출물에는 내가 과제 중에 쓴 것만 들어가야 합니다.
 - 이 저장소에는 결과물 코드가 없습니다. 공개 코드로 결과물을 통째로 대체하는 것은 금지입니다.
 - 가이드상 "일반적으로 공개된 Skill과 공개 GitHub 저장소"는 쓸 수 있습니다. 본인이 만든 공개 저장소가 여기에 해당하는지는 Cofa 팀 확인을 권장합니다.
-- 키·토큰·비밀번호는 이 저장소에 없고, 넣지도 않습니다. Git Push는 시험 환경에서 불가합니다(이 키트는 clone/pull만).
+- 키·토큰·비밀번호는 이 저장소에 없고, 넣지도 않습니다.
 - 서술형 30분은 AI·복사·붙여넣기 금지입니다. 이 키트도 그때는 쓸 수 없습니다.

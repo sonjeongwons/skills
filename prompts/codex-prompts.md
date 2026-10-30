@@ -96,8 +96,10 @@ AGREEMENT.md, DECISIONS.md, VERIFICATION.md, git log를 바탕으로 [필수 문
 ## §10. 세션 교체 (대화가 길어졌을 때)
 
 ```
-~/kit/skills/handoff/SKILL.md 절차대로 HANDOFF.md를 갱신해줘.
+$handoff
 ```
+
+(스킬이 안 보이면: `~/kit/skills/handoff/SKILL.md 절차대로 HANDOFF.md를 갱신해줘.`)
 
 새 세션에서:
 
