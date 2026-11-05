@@ -13,6 +13,18 @@ cd ~/workspace && bash ~/kit/setup.sh
 codex
 ```
 Codex 안에서: `/status` → `/model` → `/skills` (스킬 10개 확인)
+스킬은 작업 폴더 `skills/`에 모여 있다. 목록에 안 보이면 Codex를 다시 시작하고, 그래도 안 보이면:
+```
+skills/ 폴더의 SKILL.md들을 훑어서 이름과 쓰는 때를 표로 보여줘. 앞으로 상황에 맞으면 직접 읽고 따라.
+```
+
+**과제 중 스킬을 고치거나 만들고 싶을 때**
+```
+skills/[이름]/SKILL.md의 [절차]가 이 과제와 안 맞아. [어떻게]로 고치고 DECISIONS.md에 이유를 남겨줘.
+```
+```
+방금 한 [절차]를 반복할 것 같아. skills/[새-이름]/SKILL.md로 스킬을 만들어줘. name은 폴더 이름과 같게, description에는 언제 쓰는지 적어.
+```
 
 ---
 
