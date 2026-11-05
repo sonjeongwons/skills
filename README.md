@@ -24,8 +24,8 @@ codex
 
 ```
 ~/workspace/
-├── AGENTS.md  AGREEMENT.md  INTERVIEW.md  DECISIONS.md  VERIFICATION.md  HANDOFF.md
-├── skills/                      ← 스킬 10개 (과제 중 Codex가 고치고 새로 만든다)
+├── AGENTS.md  AGREEMENT.md  INTERVIEW.md  DECISIONS.md  DESIGN.md  VERIFICATION.md  HANDOFF.md
+├── skills/                      ← 스킬 11개 (과제 중 Codex가 고치고 새로 만든다)
 │   ├── requirements-discovery/SKILL.md
 │   ├── …
 │   └── .cofa-kit                ← 키트가 설치한 스킬 목록
@@ -40,8 +40,8 @@ codex
 | 대상 | 어떻게 쓰이나 | 자동 여부 |
 | --- | --- | --- |
 | 작업 폴더의 `AGENTS.md` | Codex가 **세션 시작 때 한 번** 자동으로 읽는다. 언제 어떤 문서를 고치고 어떤 스킬을 쓸지 여기 적혀 있다 | 자동 (세션 시작 시) |
-| 살아 있는 문서 5개 (INTERVIEW, AGREEMENT, DECISIONS, VERIFICATION, HANDOFF) | AGENTS.md의 "사건 → 고칠 문서" 표에 따라 Codex가 작업하면서 계속 고친다 | 자동 (규칙 기반) |
-| 스킬 10개 (작업 폴더 `skills/`) | `.agents/skills` 링크로 Codex가 자동 발견하고, 설명을 보고 상황에 맞으면 스스로 골라 읽는다. `$이름`으로 직접 부를 수도 있다. AGENTS.md에도 목록과 경로가 있어 자동 목록에 안 떠도 읽을 수 있다 | 자동 선택 + 수동 호출 |
+| 살아 있는 문서 6개 (INTERVIEW, AGREEMENT, DECISIONS, DESIGN, VERIFICATION, HANDOFF) | AGENTS.md의 "사건 → 고칠 문서" 표에 따라 Codex가 작업하면서 계속 고친다 | 자동 (규칙 기반) |
+| 스킬 11개 (작업 폴더 `skills/`) | `.agents/skills` 링크로 Codex가 자동 발견하고, 설명을 보고 상황에 맞으면 스스로 골라 읽는다. `$이름`으로 직접 부를 수도 있다. AGENTS.md에도 목록과 경로가 있어 자동 목록에 안 떠도 읽을 수 있다 | 자동 선택 + 수동 호출 |
 | 스킬 수정·추가 | 과제와 절차가 안 맞으면 Codex가 해당 SKILL.md를 고치고, 반복되는 절차는 새 스킬로 제안해 `skills/`에 만든다. 고친 이유는 DECISIONS.md에 남긴다 | 자동 (AGENTS.md 규칙) |
 | `playbook/`, `rubric/` | 스킬(`exam-stage`, `rubric-self-check`, `followup-qa-prep`)과 AGENTS.md가 필요할 때 이 경로를 읽게 한다 | 간접 |
 | `STRATEGY.md`, `prompts/`, `checklists/` | 사람이 읽는 자료. Codex에 넣지 않는다 | 사람용 |
@@ -59,6 +59,7 @@ codex
 | 과제 시작 직후 | `$requirements-discovery README를 구조화하고 담당자에게 물을 질문 초안 만들어줘` |
 | 지금 어디쯤인지, 다음 단계로 가도 되는지 | `$exam-stage 지금 경과 55분이야` |
 | 기능 하나 맡길 때 | `$delegate-and-verify [기능] / 범위 [파일] / 완료 조건 [명령→결과]` |
+| 최적화·배정·스케줄링·점수화 문제가 있을 때 (설계 직후) | `$algorithm-design 이 과제의 [최적화 대상]을 정식화해줘. 아직 구현하지 마` |
 | 무언가를 정했을 때 | `$decision-log A안으로 간다. 이유는 …` |
 | 이전 단계로 돌아가거나 갈아엎을 때 | `$stage-rollback 담당자가 v0를 보고 핵심이 다르다고 함. 지금 82분. 재인터뷰하자` |
 | 대화가 길어졌을 때, 큰 단계가 끝났을 때 | `$handoff` → 새 세션에서 돌려받은 시작 문구 입력 |
@@ -76,8 +77,8 @@ codex
 | `prompts/codex-prompts.md` | 단계별 Codex 프롬프트 | 시험 중 |
 | `prompts/interviewer-questions.md` | 업무 담당자 에이전트 인터뷰 7단계 질문 | 문제 발굴 단계 |
 | `rubric/` | 평가 기준 점검표, 서술형 대비, 비용 습관 | 스킬이 읽음 |
-| `templates/` | AGENTS.md와 살아 있는 문서 5개 | setup.sh가 복사 |
-| `skills/` | Codex 스킬 10개 (SKILL.md) | setup.sh가 작업 폴더 `skills/`에 설치 |
+| `templates/` | AGENTS.md와 살아 있는 문서 6개 (DESIGN.md: 데이터 흐름·알고리즘) | setup.sh가 복사 |
+| `skills/` | Codex 스킬 11개 (SKILL.md) | setup.sh가 작업 폴더 `skills/`에 설치 |
 
 ## 문서가 바뀌는 방식
 

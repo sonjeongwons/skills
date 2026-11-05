@@ -16,7 +16,8 @@ description: 검증 단계(대략 125분)나 제출 전에, 또는 "평가 기�
 
 1. 점검표를 읽는다.
 2. 기준마다 작업 폴더에서 증거를 찾는다.
-   - 파일: `AGREEMENT.md`, `INTERVIEW.md`, `DECISIONS.md`, `VERIFICATION.md`, `HANDOFF.md`, README가 정한 필수 문서
+   - 파일: `AGREEMENT.md`, `INTERVIEW.md`, `DECISIONS.md`, `DESIGN.md`, `VERIFICATION.md`, `HANDOFF.md`, README가 정한 필수 문서
+   - 알고리즘 과제면: `DESIGN.md` 4절에 정식화·선택 이유·검증 수치(정답 대조, 제약 위반, 기준선 대비 개선)가 실제로 있는지
    - git: `git log --oneline`, `git log --stat | head -60`
    - 코드: 구조, 키 하드코딩 여부(`security-review` 스킬과 겹치면 그 결과를 쓴다)
 3. 보고한다. 증거가 없으면 "없음"으로 쓰고 지어내지 않는다.

@@ -4,7 +4,7 @@
 # 사용법: 과제 작업 폴더에서   bash ~/kit/setup.sh [--update-skills] [대상 폴더]
 #
 # 하는 일 (대상 폴더 = 실행한 위치, 또는 인자로 준 폴더)
-#   1) 살아 있는 문서 6개(AGENTS.md 등)를 대상 폴더에 복사 — 기존 파일은 덮어쓰지 않음
+#   1) 살아 있는 문서 7개(AGENTS.md, DESIGN.md 등)를 대상 폴더에 복사 — 기존 파일은 덮어쓰지 않음
 #   2) 스킬을 대상 폴더의 skills/ 한 곳에 모아서 설치
 #      - .agents/skills -> ../skills 링크를 만들어 Codex가 자동으로 찾게 함
 #      - 이미 있는 스킬은 보존 (Codex가 과제 중에 고친 내용을 지키기 위해)
@@ -49,7 +49,7 @@ cd "$TARGET"
 
 # ---------------------------------------------------------------- 1) 문서 템플릿
 copied=(); skipped=()
-for f in AGENTS.md AGREEMENT.md INTERVIEW.md DECISIONS.md VERIFICATION.md HANDOFF.md; do
+for f in AGENTS.md AGREEMENT.md INTERVIEW.md DECISIONS.md DESIGN.md VERIFICATION.md HANDOFF.md; do
   src="$KIT_DIR/templates/$f"
   if [ ! -e "$f" ]; then
     render "$src" "$f"; copied+=("$f")
